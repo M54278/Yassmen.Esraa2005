@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yassmen ♡ Esraa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #fff0f5;
+            color: #4a3b32;
+            font-family: 'Cairo', sans-serif, Tahoma;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* خلفية الورود المتحركة */
+        .roses-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .rose-item {
+            position: absolute;
+            top: -50px;
+            font-size: 20px;
+            animation: fallRose 6s linear infinite;
+            opacity: 0.8;
+        }
+        @keyframes fallRose {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0.3; }
+        }
+
+        /* شاشة القفل والظرف الأنيق */
+        .envelope-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .envelope-section.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .title-top-env {
+            font-size: 16px;
+            color: #d81b60;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .envelope-box {
+            background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+            width: 290px;
+            height: 180px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            margin-bottom: 25px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .envelope-box:hover {
+            transform: scale(1.03);
+        }
+        .envelope-text {
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #c71585;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid #ffc0cb;
+        }
+        .password-input {
+            background: #fff;
+            border: 1px solid #ffb6c1;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            color: #c71585;
+            text-align: center;
+            outline: none;
+            width: 200px;
+        }
+        .unlock-btn {
+            background: linear-gradient(135deg, #ff1493, #c71585);
+            color: white;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            transition: transform 0.2s;
+        }
+        .unlock-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* محتوى الصفحة الرئيسية */
+        .invitation-content {
+            display: none;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            padding: 20px 0 90px 0;
+        }
+        .invitation-content.show {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* العداد والتصميم المصغر */
+        .counter-card {
+            background: #fff;
+            border: 1px solid #ffb6c1;
+            padding: 18px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.1);
+        }
+        .counter-title {
+            font-size: 14px;
+            color: #c71585;
+            font-weight: bold;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            direction: ltr;
+        }
+        .time-box {
+            background: #fff0f5;
+            border: 1px solid #ffb6c1;
+            padding: 8px 2px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .time-number {
+            font-size: 16px;
+            font-weight: bold;
+            color: #c71585;
+        }
+        .time-label {
+            font-size: 11px;
+            color: #d81b60;
+            margin-top: 2px;
+        }
+
+        /* مشغل الأغنية (قرص دائري بيلف) */
+        .music-player-card {
+            background: #fff;
+            border: 1px solid #ffb6c1;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.1);
+        }
+        .disc-container {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid #ff1493;
+            animation: spinDisc 4s linear infinite;
+            animation-play-state: paused;
+            flex-shrink: 0;
+            background: #ffb6c1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .disc-container.playing {
+            animation-play-state: running;
+        }
+        .disc-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .song-name-text {
+            font-size: 13px;
+            font-weight: bold;
+            color: #c71585;
+        }
+        .play-btn-circle {
+            background: #ff1493;
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            box-shadow: 0 3px 8px rgba(255, 20, 147, 0.3);
+        }
+        @keyframes spinDisc {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* كروت الصور والذكريات */
+        .card {
+            background: #fff;
+            border: 1px solid #ffb6c1;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.08);
+        }
+        .card img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #ffe4e1;
+        }
+        .card p {
+            font-size: 14px;
+            color: #4a3b32;
+            line-height: 1.8;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        /* قسم التواصل والتوقيع */
+        .contact-box {
+            background: #fff;
+            border: 1px solid #ffb6c1;
+            padding: 18px;
+            border-radius: 20px;
+            margin-top: 5px;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.08);
+        }
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #25d366;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+        }
+        .designer-sig {
+            margin-top: 15px;
+            font-size: 11px;
+            color: #c71585;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- خلفية الورود المتحركة -->
+    <div class="roses-bg" id="rosesContainer"></div>
+
+    <!-- الشاشة الأولى: الظرف وكلمة السر -->
+    <div class="envelope-section" id="lockScreen">
+        <div class="title-top-env">
+            <span>Yassmen ♡ Esraa</span> ❤️
+        </div>
+        
+        <div class="envelope-box" onclick="openEnvelope()">
+            <div class="envelope-text">
+                <i class="fas fa-envelope-open-text" style="color: #ff1493;"></i> دوسي هنا يا قلب اختك
+            </div>
+        </div>
+
+        <div class="login-box">
+            <div style="font-size: 12px; color: #d81b60; font-weight: bold;">اكتبي كلمة السر...</div>
+            <input type="password" class="password-input" placeholder="كلمة السر">
+            <button class="unlock-btn" onclick="openEnvelope()">دوسي هنا يقلب اختك ✨</button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="invitation-content" id="mainContent">
+
+        <!-- العداد التنازلي لعيد الميلاد -->
+        <div class="counter-card">
+            <div class="counter-title">
+                هنحتفل بعيد ميلادنا سوا ياقلبي وفاضل 👇🏻👇🏻
+            </div>
+            <div class="counter-grid">
+                <div class="time-box">
+                    <div class="time-number" id="days">00</div>
+                    <div class="time-label">يوم</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-number" id="hours">00</div>
+                    <div class="time-label">ساعة</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-number" id="minutes">00</div>
+                    <div class="time-label">دقيقة</div>
+                </div>
+                <div class="time-box">
+                    <div class="time-number" id="seconds">00</div>
+                    <div class="time-label">ثانية</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- مشغل الأغنية (قرص دائري مصغر) -->
+        <div class="music-player-card">
+            <div class="disc-container" id="discIcon">
+                <img src="IMG-20260925-WA0005.jpg" alt="Disc">
+            </div>
+            <div class="song-name-text">Yassmen w Esraa 🎵</div>
+            <button class="play-btn-circle" onclick="togglePlay()">
+                <i class="fas fa-play" id="playPauseIcon"></i>
+            </button>
+            <audio id="bgAudio" loop>
+                <source src="Yassmen w Esraa 2005.mp3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <!-- الصور والنصوص المطلوبة -->
+        <div class="card">
+            <img src="IMG-20260925-WA0006.jpg" alt="صورة 1">
+            <p>انها ليس اختي انما هي النجمه الوحيدة التي بقيت مضيئه حينما اظلم الكون بأكمله ♥👑</p>
+        </div>
+
+        <div class="card">
+            <img src="IMG-20260925-WA0005.jpg" alt="صورة 2">
+            <p>
+                اللهم السـلام لقلبـهها من كـل شـيء يرهقـهها ، يتعبـهها، يضعفـهها ، يـؤذيـهها<br>
+                ليس لدي كلام عن الاخت لانه لا يمكن وصف قطعة من الجنة 🤍🤍<br>
+                اختي الغالية الحنونة الله لا يحرمني من وجودك يا اختي الغالية ربي يحفظك ♥
+            </p>
+        </div>
+
+        <div class="card">
+            <img src="IMG-20260925-WA0007.jpg" alt="صورة 3">
+            <p>هي ليست كأي أحد إنما عظيمة بداخلي لها خمس مقامات ♡حبـيـبـتي♡ ثم ♡صديقـتـي♡ ثم ♡أُخـتـي♡ ثم ♡تـؤأم روحـي♡ ، ثم ♡وطـني♡ ، ثم ♡الحياة♡. حسّها في الحياة يكفي عن ألف شعُور ♥</p>
+        </div>
+
+        <div class="card">
+            <img src="IMG-20260925-WA0004.jpg" alt="صورة 4">
+            <p>اللهم اني استودعتك نفسي ❤❤</p>
+        </div>
+
+        <!-- قسم التواصل والتوقيع الأخير -->
+        <div class="contact-box">
+            <div style="font-size: 13px; color: #c71585; font-weight: bold;">
+                لو حابين تصميم زي دا كلموني واتس 👆🏻👆🏻👆🏻 لتصميم هديه او لعيد ميلاد حد من صحابك
+            </div>
+            <a href="https://wa.me/201556446391?text=مرحباً%20أريد%20تصميم%20مثل%20هذا" class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> للتصميم كلمني +201556446391 💬
+            </a>
+            <div class="designer-sig">
+                تصميم 𝐻𝑜𝑠𝑠𝑎𝑚
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // تاريخ عيد الميلاد المستهدف: 20 يوليو 2027
+        const targetDate = new Date("2027-07-20T00:00:00").getTime();
+
+        function updateCounter() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = String(days);
+                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.querySelector('.counter-card').innerHTML = "<div style='color:#c71585; font-weight:bold;'>كل سنة وانتِ طيبة يا أجمل نجمة في حياتي! 🎉❤️</div>";
+            }
+        }
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        function openEnvelope() {
+            const lockScreen = document.getElementById('lockScreen');
+            const mainContent = document.getElementById('mainContent');
+            const audio = document.getElementById('bgAudio');
+            const disc = document.getElementById('discIcon');
+            const playIcon = document.getElementById('playPauseIcon');
+
+            lockScreen.classList.add('hide');
+            mainContent.classList.add('show');
+            
+            audio.play().then(() => {
+                disc.classList.add('playing');
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            }).catch(e => {
+                console.log("Autoplay restricted");
+            });
+        }
+
+        function togglePlay() {
+            const audio = document.getElementById('bgAudio');
+            const disc = document.getElementById('discIcon');
+            const playIcon = document.getElementById('playPauseIcon');
+
+            if (audio.paused) {
+                audio.play();
+                disc.classList.add('playing');
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            } else {
+                audio.pause();
+                disc.classList.remove('playing');
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-play');
+            }
+        }
+
+        // تأثير تساقط الورود في الخلفية
+        function createRose() {
+            const container = document.getElementById('rosesContainer');
+            if(!container) return;
+            const rose = document.createElement('div');
+            rose.classList.add('rose-item');
+            rose.innerHTML = '🌹';
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            rose.style.fontSize = (Math.random() * 10 + 15) + 'px';
+            container.appendChild(rose);
+            setTimeout(() => rose.remove(), 7000);
+        }
+        setInterval(createRose, 400);
+    </script>
+</body>
+</html>
