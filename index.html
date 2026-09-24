@@ -44,14 +44,14 @@
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0.3; }
         }
 
-        /* واجهة الظرف وكلمة السر */
+        /* واجهة البداية (بنفس نظام وستايل الصورة المطلوبة) */
         .envelope-section {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #fff0f5, #ffe4e1);
+            background: #fff0f5;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -65,48 +65,62 @@
         }
 
         .title-top-env {
-            font-size: 18px;
+            font-size: 16px;
             color: #d81b60;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .envelope-box {
+        /* حاوية الظرف الوردية تماماً مثل الصورة */
+        .envelope-container-box {
             background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-            width: 290px;
-            height: 180px;
-            border-radius: 15px;
+            width: 320px;
+            height: 190px;
+            border-radius: 20px;
             position: relative;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid #fff;
-            margin-bottom: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-bottom: 20px;
         }
-        .envelope-text {
+        .envelope-container-box:hover {
+            transform: scale(1.02);
+        }
+
+        .envelope-btn-white {
             background: #fff;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 12px 25px;
+            border-radius: 12px;
             font-size: 14px;
-            color: #c71585;
+            color: #d81b60;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
+        /* خانة كتابة كلمة السر (تظهر بدلاً من الظرف عند الضغط عليه) */
         .login-box {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
+            background: #fff;
+            padding: 25px 30px;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.15);
             border: 1px solid #ffc0cb;
+            width: 290px;
+        }
+        .login-box.show {
+            display: flex;
         }
         .password-input {
             background: #fff;
@@ -117,7 +131,8 @@
             color: #c71585;
             text-align: center;
             outline: none;
-            width: 200px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .unlock-btn {
             background: linear-gradient(135deg, #ff1493, #c71585);
@@ -129,10 +144,11 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            width: 100%;
             transition: transform 0.2s;
         }
         .unlock-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
         .error-msg {
             color: #d32f2f;
@@ -201,7 +217,7 @@
             margin-top: 2px;
         }
 
-        /* مشغل الأغنية (قرص بيلف) */
+        /* مشغل الأغنية (قرص دائري بيلف) */
         .music-player-card {
             background: #fff;
             border: 1px solid #ffb6c1;
@@ -318,20 +334,24 @@
 </head>
 <body>
 
+    <!-- خلفية الورود المتحركة -->
     <div class="roses-bg" id="rosesContainer"></div>
 
+    <!-- واجهة البداية (بنفس نظام الصورة) -->
     <div class="envelope-section" id="lockScreen">
         <div class="title-top-env">
-            Yassmen ♡ Esraa 🌸
+            🌸 Yassmen ♡ Esraa
         </div>
         
-        <div class="envelope-box">
-            <div class="envelope-text">
-                <i class="fas fa-heart" style="color: #ff1493;"></i> دوسي هنا يا قلب اختك
+        <!-- الظرف الأساسي -->
+        <div class="envelope-container-box" id="envelopeCard" onclick="revealPasswordBox()">
+            <div class="envelope-btn-white">
+                دوسي هنا يا قلب اختك <i class="fas fa-heart" style="color: #ff1493;"></i>
             </div>
         </div>
 
-        <div class="login-box">
+        <!-- خانة كلمة السر التي تظهر عند الضغط على الظرف -->
+        <div class="login-box" id="loginBox">
             <div style="font-size: 13px; color: #d81b60; font-weight: bold;">اكتبي كلمة السر...</div>
             <input type="password" id="passwordInput" class="password-input" placeholder="كلمة السر">
             <button class="unlock-btn" onclick="checkPassword()">دوسي هنا يقلب اختك ✨</button>
@@ -339,8 +359,10 @@
         </div>
     </div>
 
+    <!-- المحتوى الرئيسي -->
     <div class="invitation-content" id="mainContent">
 
+        <!-- العداد التنازلي -->
         <div class="counter-card">
             <div class="counter-title">
                 هنحتفل بعيد ميلادنا سوا ياقلبي وفاضل 👇🏻👇🏻
@@ -365,6 +387,7 @@
             </div>
         </div>
 
+        <!-- مشغل الأغنية (قرص دائري بيلف) -->
         <div class="music-player-card">
             <div class="disc-container" id="discIcon">
                 <img src="IMG-20260925-WA0005.jpg" alt="Disc">
@@ -378,6 +401,7 @@
             </audio>
         </div>
 
+        <!-- الصور والنصوص -->
         <div class="card">
             <img src="IMG-20260925-WA0006.jpg" alt="صورة 1">
             <p>انها ليس اختي انما هي النجمه الوحيدة التي بقيت مضيئه حينما اظلم الكون بأكمله ♥👑</p>
@@ -402,6 +426,7 @@
             <p>اللهم اني استودعتك نفسي ❤❤</p>
         </div>
 
+        <!-- التواصل والتوقيع -->
         <div class="contact-box">
             <div style="font-size: 13px; color: #c71585; font-weight: bold;">
                 لو حابين تصميم زي دا كلموني واتس 👆🏻👆🏻👆🏻 لتصميم هديه او لعيد ميلاد حد من صحابك
@@ -417,7 +442,13 @@
     </div>
 
     <script>
-        // التحقق من كلمة السر Y2005E
+        // إظهار خانة كلمة السر وإخفاء الظرف عند الضغط عليه
+        function revealPasswordBox() {
+            document.getElementById('envelopeCard').style.display = 'none';
+            document.getElementById('loginBox').classList.add('show');
+        }
+
+        // التحقق من كلمة السر Y2005E وتفعيل الأغنية والمحتوى
         function checkPassword() {
             const inputVal = document.getElementById('passwordInput').value.trim();
             const errorMsg = document.getElementById('errorMsg');
