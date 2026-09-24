@@ -44,7 +44,7 @@
             100% { transform: translateY(105vh) rotate(360deg); opacity: 0.3; }
         }
 
-        /* شاشة القفل والظرف الأنيق */
+        /* واجهة الظرف وكلمة السر */
         .envelope-section {
             position: fixed;
             top: 0;
@@ -65,13 +65,10 @@
         }
 
         .title-top-env {
-            font-size: 16px;
+            font-size: 18px;
             color: #d81b60;
             font-weight: bold;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .envelope-box {
@@ -86,17 +83,12 @@
             justify-content: center;
             border: 2px solid #fff;
             margin-bottom: 25px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        .envelope-box:hover {
-            transform: scale(1.03);
         }
         .envelope-text {
             background: #fff;
             padding: 10px 20px;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             color: #c71585;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -110,7 +102,7 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             padding: 20px;
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
@@ -142,6 +134,13 @@
         .unlock-btn:hover {
             transform: scale(1.05);
         }
+        .error-msg {
+            color: #d32f2f;
+            font-size: 12px;
+            font-weight: bold;
+            display: none;
+            margin-top: 5px;
+        }
 
         /* محتوى الصفحة الرئيسية */
         .invitation-content {
@@ -163,7 +162,7 @@
             transform: translateY(0);
         }
 
-        /* العداد والتصميم المصغر */
+        /* العداد */
         .counter-card {
             background: #fff;
             border: 1px solid #ffb6c1;
@@ -202,7 +201,7 @@
             margin-top: 2px;
         }
 
-        /* مشغل الأغنية (قرص دائري بيلف) */
+        /* مشغل الأغنية (قرص بيلف) */
         .music-player-card {
             background: #fff;
             border: 1px solid #ffb6c1;
@@ -283,7 +282,7 @@
             font-weight: bold;
         }
 
-        /* قسم التواصل والتوقيع */
+        /* التواصل والتوقيع */
         .contact-box {
             background: #fff;
             border: 1px solid #ffb6c1;
@@ -319,32 +318,29 @@
 </head>
 <body>
 
-    <!-- خلفية الورود المتحركة -->
     <div class="roses-bg" id="rosesContainer"></div>
 
-    <!-- الشاشة الأولى: الظرف وكلمة السر -->
     <div class="envelope-section" id="lockScreen">
         <div class="title-top-env">
-            <span>Yassmen ♡ Esraa</span> ❤️
+            Yassmen ♡ Esraa 🌸
         </div>
         
-        <div class="envelope-box" onclick="openEnvelope()">
+        <div class="envelope-box">
             <div class="envelope-text">
-                <i class="fas fa-envelope-open-text" style="color: #ff1493;"></i> دوسي هنا يا قلب اختك
+                <i class="fas fa-heart" style="color: #ff1493;"></i> دوسي هنا يا قلب اختك
             </div>
         </div>
 
         <div class="login-box">
-            <div style="font-size: 12px; color: #d81b60; font-weight: bold;">اكتبي كلمة السر...</div>
-            <input type="password" class="password-input" placeholder="كلمة السر">
-            <button class="unlock-btn" onclick="openEnvelope()">دوسي هنا يقلب اختك ✨</button>
+            <div style="font-size: 13px; color: #d81b60; font-weight: bold;">اكتبي كلمة السر...</div>
+            <input type="password" id="passwordInput" class="password-input" placeholder="كلمة السر">
+            <button class="unlock-btn" onclick="checkPassword()">دوسي هنا يقلب اختك ✨</button>
+            <div id="errorMsg" class="error-msg">كلمة السر غلط يا قلبي، جربي تاني ❤️</div>
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي -->
     <div class="invitation-content" id="mainContent">
 
-        <!-- العداد التنازلي لعيد الميلاد -->
         <div class="counter-card">
             <div class="counter-title">
                 هنحتفل بعيد ميلادنا سوا ياقلبي وفاضل 👇🏻👇🏻
@@ -369,7 +365,6 @@
             </div>
         </div>
 
-        <!-- مشغل الأغنية (قرص دائري مصغر) -->
         <div class="music-player-card">
             <div class="disc-container" id="discIcon">
                 <img src="IMG-20260925-WA0005.jpg" alt="Disc">
@@ -383,7 +378,6 @@
             </audio>
         </div>
 
-        <!-- الصور والنصوص المطلوبة -->
         <div class="card">
             <img src="IMG-20260925-WA0006.jpg" alt="صورة 1">
             <p>انها ليس اختي انما هي النجمه الوحيدة التي بقيت مضيئه حينما اظلم الكون بأكمله ♥👑</p>
@@ -408,7 +402,6 @@
             <p>اللهم اني استودعتك نفسي ❤❤</p>
         </div>
 
-        <!-- قسم التواصل والتوقيع الأخير -->
         <div class="contact-box">
             <div style="font-size: 13px; color: #c71585; font-weight: bold;">
                 لو حابين تصميم زي دا كلموني واتس 👆🏻👆🏻👆🏻 لتصميم هديه او لعيد ميلاد حد من صحابك
@@ -424,7 +417,34 @@
     </div>
 
     <script>
-        // تاريخ عيد الميلاد المستهدف: 20 يوليو 2027
+        // التحقق من كلمة السر Y2005E
+        function checkPassword() {
+            const inputVal = document.getElementById('passwordInput').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (inputVal === "Y2005E") {
+                const lockScreen = document.getElementById('lockScreen');
+                const mainContent = document.getElementById('mainContent');
+                const audio = document.getElementById('bgAudio');
+                const disc = document.getElementById('discIcon');
+                const playIcon = document.getElementById('playPauseIcon');
+
+                lockScreen.classList.add('hide');
+                mainContent.classList.add('show');
+                
+                audio.play().then(() => {
+                    disc.classList.add('playing');
+                    playIcon.classList.remove('fa-play');
+                    playIcon.classList.add('fa-pause');
+                }).catch(e => {
+                    console.log("Autoplay restricted");
+                });
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // تاريخ العداد التنازلي: 20 يوليو 2027
         const targetDate = new Date("2027-07-20T00:00:00").getTime();
 
         function updateCounter() {
@@ -447,25 +467,6 @@
         }
         setInterval(updateCounter, 1000);
         updateCounter();
-
-        function openEnvelope() {
-            const lockScreen = document.getElementById('lockScreen');
-            const mainContent = document.getElementById('mainContent');
-            const audio = document.getElementById('bgAudio');
-            const disc = document.getElementById('discIcon');
-            const playIcon = document.getElementById('playPauseIcon');
-
-            lockScreen.classList.add('hide');
-            mainContent.classList.add('show');
-            
-            audio.play().then(() => {
-                disc.classList.add('playing');
-                playIcon.classList.remove('fa-play');
-                playIcon.classList.add('fa-pause');
-            }).catch(e => {
-                console.log("Autoplay restricted");
-            });
-        }
 
         function togglePlay() {
             const audio = document.getElementById('bgAudio');
